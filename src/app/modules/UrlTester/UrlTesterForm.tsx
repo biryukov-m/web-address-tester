@@ -2,38 +2,32 @@
 
 import React from 'react';
 import { IResult } from './UrlTester';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import * as Styled from './UrlTesterForm.styled';
-import hostService from '@/app/services/Hostname.service';
+import hostService from '@/app/services/Host.service';
 import { STATUSES } from '@/app/consts/app.const';
 
 interface IProps {
-  websitesInput: string;
-  setWebsitesInput: React.Dispatch<React.SetStateAction<string>>;
+  hostsInput: string;
+  setHostsInput: React.Dispatch<React.SetStateAction<string>>;
   setResults: React.Dispatch<React.SetStateAction<IResult[]>>;
 }
-export const convertStrToUrlsArr = (str: string) => str.split('\n').map((url) => url.trim());
 
-export const UrlTesterForm: React.FC<IProps> = ({
-  websitesInput,
-  setWebsitesInput,
-  setResults
-}) => {
-  const urls = websitesInput.length > 0 ? convertStrToUrlsArr(websitesInput) : null;
-
+export const UrlTesterForm: React.FC<IProps> = ({ hostsInput, setHostsInput, setResults }) => {
   const handleTextareaChange = (event: React.ChangeEvent<any>) => {
-    setWebsitesInput(event.target.value);
+    setHostsInput(event.target.value);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (urls) {
+    const hosts = hostsInput.length > 0 ? hostService.convertStrToHostsArr(hostsInput) : null;
+    if (hosts) {
       setResults([]);
-
-      for (const url of urls) {
+      for (const host of hosts) {
+        const url = hostService.prependHttps(host);
         const status = await hostService.checkHost(url);
-        const ip = status === STATUSES.available ? await hostService.getIpInfo(url) : 'N/A';
-        setResults((prevState) => [...prevState, { url, status, ip }]);
+        const ip = status === STATUSES.available ? await hostService.getIpInfo(host) : 'N/A';
+        setResults((prevState) => [...prevState, { url: host, status, ip }]);
       }
     }
   };
@@ -52,17 +46,16 @@ export const UrlTesterForm: React.FC<IProps> = ({
       >
         <label htmlFor="websiteTextarea">Введіть адреси сайтів (кожна з нового рядку):</label>
 
-        <Styled.Textarea
+        <Styled.CustomTextareaAutosize
           id="websiteTextarea"
           minRows={5}
           cols={50}
-          value={websitesInput}
+          value={hostsInput}
           onChange={(e) => handleTextareaChange(e)}
           required
           minLength={10}
           placeholder="google.com або http://google.com ..."
         />
-        {urls && <Typography>Всього: {urls.length} шт.</Typography>}
         <Button type="submit">Перевірити доступність</Button>
       </Box>
     </form>

@@ -32,7 +32,7 @@ const UrlTesterResultsTable: React.FC<IProps> = ({ results }) => {
       <Styled.CustomDataGrid
         rows={rows}
         columns={columns}
-        pageSizeOptions={[100, 200, 500, 1000]}
+        pageSizeOptions={[10, 50, 100, 1000]}
         getRowClassName={(params) => `${params.row.classname}`}
         checkboxSelection
         autoHeight

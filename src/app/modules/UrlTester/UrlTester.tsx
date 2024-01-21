@@ -12,14 +12,14 @@ export interface IResult {
 }
 
 export const UrlTester = () => {
-  const [websitesInput, setWebsitesInput] = useState('');
+  const [hostsInput, setHostsInput] = useState('');
   const [results, setResults] = useState<IResult[]>([]);
   return (
     <>
       <Box>
-        <UrlTesterForm {...{ websitesInput, setWebsitesInput, setResults }} />
+        <UrlTesterForm {...{ hostsInput, setHostsInput, setResults }} />
       </Box>
-      {results.length > 0 && <UrlTesterResults {...{ results, websitesInput }} />}
+      {results.length > 0 && <UrlTesterResults {...{ results }} />}
     </>
   );
 };

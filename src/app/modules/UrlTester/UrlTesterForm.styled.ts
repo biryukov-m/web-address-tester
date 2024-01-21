@@ -2,7 +2,7 @@ import { COLORS } from '@/app/consts/app.const';
 import styled from '@emotion/styled';
 import { TextareaAutosize } from '@mui/material';
 
-export const Textarea = styled(TextareaAutosize)`
+export const CustomTextareaAutosize = styled(TextareaAutosize)`
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
