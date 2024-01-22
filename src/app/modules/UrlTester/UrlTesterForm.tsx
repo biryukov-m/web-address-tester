@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Box, Button } from '@mui/material';
-import { hostService } from '@/app/services/Host.service';
+import { hostService } from '@/app/services/HostService';
 import { IResult } from '@/app/types/types';
 import { urlManipulationService } from '@/app/services/UrlManipulationService';
 import * as Styled from './UrlTesterForm.styled';
@@ -43,7 +43,7 @@ export const UrlTesterForm: React.FC<IProps> = ({
       const progress = ((currentIndex + batchSize) / urls.length) * 100;
       setProgress(progress);
     } catch (error) {
-      console.error('An error occurred while fetching multiple hosts:', error);
+      /* empty */
     }
     processBatch(urls, batchSize, currentIndex + batchSize);
   };
