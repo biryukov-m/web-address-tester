@@ -20,7 +20,7 @@ class HostService {
       .filter((url) => hostService.isValidUrl(this.prependHttps(url)));
 
   async getIpInfo(hostname: string): Promise<string> {
-    const url = `https://ip-api.com/json/${hostname}`;
+    const url = `http://ip-api.com/json/${hostname}`;
     try {
       const response = await fetch(url);
       const data = await response.json();
