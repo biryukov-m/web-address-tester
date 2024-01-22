@@ -1,45 +1,53 @@
 import { STATUSES } from '../consts/app.const';
-import isUrl from 'is-url';
+import { UrlManipulationService } from './UrlManipulationService';
 
 class HostService {
-  prependHttps(url: string): string {
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-      return `https://${url}`;
-    }
-    return url;
-  }
+  private urlManipulationService = new UrlManipulationService();
 
-  private isValidUrl(url: string): boolean {
-    return isUrl(url);
-  }
-
-  convertStrToHostsArr = (str: string) =>
-    str
-      .split('\n')
-      .map((url) => url.trim())
-      .filter((url) => hostService.isValidUrl(this.prependHttps(url)));
-
-  async getIpInfo(hostname: string): Promise<string> {
-    const url = `http://ip-api.com/json/${hostname}`;
+  async getIpInfo(query: string): Promise<string> {
+    const trimmedUrl = this.urlManipulationService.extractHostname(query);
+    const url = `http://ip-api.com/json/${trimmedUrl}`;
     try {
       const response = await fetch(url);
       const data = await response.json();
-      return data.query;
+      console.log(data);
+      if (data.status === 'success') {
+        return data.query;
+      }
+      throw new Error(data.status);
     } catch (error) {
+      if (error instanceof Error) {
+        return error.message;
+      }
       return 'N/A';
     }
   }
 
-  async checkHost(url: string) {
+  async checkHost(hostname: string) {
+    const url = this.urlManipulationService.prependHttps(hostname);
+    const timeoutMillis = 1000;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMillis);
     try {
-      await fetch(url, { method: 'GET', mode: 'no-cors' });
+      await fetch(url, { method: 'GET', mode: 'no-cors', signal: controller.signal });
       return STATUSES.available;
     } catch (error) {
       return STATUSES.unavailable;
+    } finally {
+      clearTimeout(timeoutId);
     }
+  }
+
+  async checkMultipleHosts(urls: string[]): Promise<{ url: string; status: string; ip: string }[]> {
+    const results = await Promise.all(
+      urls.map(async (url) => {
+        const status = await this.checkHost(url);
+        const ip = await this.getIpInfo(url);
+        return { url, status, ip };
+      })
+    );
+    return results;
   }
 }
 
-const hostService = new HostService();
-
-export default hostService;
+export const hostService = new HostService();
