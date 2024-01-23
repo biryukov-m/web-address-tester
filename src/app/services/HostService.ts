@@ -10,7 +10,6 @@ class HostService {
     try {
       const response = await fetch(url);
       const data = await response.json();
-      console.log(data);
       if (data.status === 'success') {
         return data.query;
       }
