@@ -1,0 +1,16 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "start": "yarn && lerna run --parallel start",
+    "dev": "yarn && lerna run --parallel dev",
+    "lint:fix": "npx eslint packages/**/*.ts packages/**/*.tsx --fix"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "lerna": "^8.0.2"
+  }
+}
