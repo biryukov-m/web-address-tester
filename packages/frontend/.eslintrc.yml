@@ -1,0 +1,5 @@
+# 💠 ENV
+extends:
+  - next
+  - ../../.eslintrc.yml
+  - next/core-web-vitals

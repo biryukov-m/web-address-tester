@@ -1,7 +1,7 @@
-import { COLORS } from '@/app/consts/app.const';
 import { styled } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { darken } from '@mui/material/styles';
+import { COLORS } from '@/app/consts/app.const';
 
 export const CustomDataGrid = styled(DataGrid)`
   .available {

@@ -5,7 +5,7 @@ env:
   es2021: true
 # 💠 Extends
 extends:
-  - next/core-web-vitals
+  # - next/core-web-vitals
   - airbnb-base
   - airbnb-typescript/base
   - plugin:prettier/recommended

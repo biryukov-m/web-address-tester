@@ -1,6 +1,6 @@
-import { COLORS } from '@/app/consts/app.const';
 import styled from '@emotion/styled';
 import { TextareaAutosize } from '@mui/material';
+import { COLORS } from '@/app/consts/app.const';
 
 export const CustomTextareaAutosize = styled(TextareaAutosize)`
   font-size: 1rem;

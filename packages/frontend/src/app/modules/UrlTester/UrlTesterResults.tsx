@@ -3,9 +3,9 @@
 import React from 'react';
 import { GridColDef, GridToolbar, ukUA } from '@mui/x-data-grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { STATUSES } from '@/app/consts/app.const';
 import { format } from 'date-fns';
 import { LinearProgress } from '@mui/material';
+import { STATUSES } from '@/app/consts/app.const';
 import { IResult } from '@/app/types/types';
 import * as Styled from './UrlTesterResults.styled';
 
