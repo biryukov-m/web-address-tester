@@ -1,0 +1,36 @@
+# Dependency directories
+node_modules/
+
+# TypeScript build output
+dist/
+build/
+
+# Environment variables
+.env
+
+# Logs
+logs
+*.log
+
+# Generated files
+.DS_Store
+*.pnp.*
+.yarn/
+
+# IDE and editor files
+.idea/
+.vscode/
+
+# Compiled binary addons (if any)
+build/Release/
+
+# OS-specific files
+Thumbs.db
+.DS_Store
+Desktop.ini
+$RECYCLE.BIN/
+
+# Yarn Integrity file
+.yarn-integrity
+
+ 

@@ -3,18 +3,26 @@ root: true
 env:
   browser: true
   es2021: true
+  node: true
+
+ignorePatterns:
+  - 'node_modules/**'
+  - 'dist/**' # Adjust if needed
+
 # 💠 Extends
 extends:
-  # - next/core-web-vitals
-  - airbnb-base
-  - airbnb-typescript/base
   - plugin:prettier/recommended
+  - airbnb-base
+  - airbnb-typescript-base
+  - next/core-web-vitals
 
 # 💠 Parser
 parser: '@typescript-eslint/parser'
 
 # 💠 Parser options
 parserOptions:
+  ecmaFeatures:
+    jsx: true
   ecmaVersion: latest
   sourceType: module
   project:
@@ -22,7 +30,6 @@ parserOptions:
 
 # 💠 Plugins
 plugins:
-  - '@typescript-eslint'
   - prettier
 
 # 💠 Settings
@@ -96,18 +103,13 @@ rules:
   '@typescript-eslint/semi': 'error'
   # Need it to stop if SERVICE is not passed
   '@typescript-eslint/no-throw-literal': 'off'
-# ⭐ Overrides
-# overrides:
-#   [
-#     {
-#       files: ['*.ts', '*.tsx'],
-#       rules: { 'no-undef': 'off' },
-#       parserOptions: { project: ['./tsconfig.json'] }
-#     }
-#   ]
 
+# ⭐ Overrides
 overrides:
-  - files: '*.ts'
-    parser: '@typescript-eslint/parser'
-    parserOptions:
-      project: './tsconfig.json'
+  [
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: { 'no-undef': 'off' },
+      parserOptions: { project: ['./tsconfig.json'] }
+    }
+  ]

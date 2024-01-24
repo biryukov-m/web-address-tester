@@ -1,6 +1,6 @@
-import React from 'react';
-import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
+import React from 'react';
 
 interface IProps {
   open: boolean;
